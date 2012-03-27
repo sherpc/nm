@@ -29,4 +29,17 @@ class TestLU < Test::Unit::TestCase
     ]
     test_cases.each { |test_case| do_lu_test(test_case[:data], test_case[:expected]) }
   end
+
+  def do_lu_solve_test(test_case)
+    m = LU.new(test_case[:A_matrix])
+    result = m.solve(test_case[:B_matrix])
+    assert_equal(result, test_case[:expected])
+  end
+
+  def test_lu_solve
+    test_cases = [
+      {A_matrix: [[4,3], [6,3]], B_matrix: [4, 3], expected: [-0.5, 2]}
+    ]
+    test_cases.each { |test_case| do_lu_solve_test test_case }
+  end
 end

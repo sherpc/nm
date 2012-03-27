@@ -15,9 +15,7 @@ class LU < Solution
       @i = i
       for j in i..n
         @result[i][j] = @matrix[i][j] - sum(i,j)
-      end
-      for j in i+1..n
-        @result[j][i] = (@matrix[j][i] - sum(j,i)) / @result[i][i]
+        @result[j+1][i] = (@matrix[j+1][i] - sum(j+1,i)) / @result[i][i] if j < n
       end
     end
     Solution.new(@result)

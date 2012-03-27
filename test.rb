@@ -1,9 +1,31 @@
- require "test/unit"
- require "./main.rb"
+require "test/unit"
+require "./main.rb"
 
- class TestSolution < Test::Unit::TestCase
+class TestSolution < Test::Unit::TestCase
   def test_data_loading
     assert_equal(Data::LU,LU.new.matrix)
     assert_equal(Data::THOMAS,Thomas.new.matrix)
   end
- end
+
+  def test_custom_data_loading
+    data = [[1,2], [3,4]]
+    assert_equal(LU.new(data).matrix, data)
+  end
+end
+
+class TestLU < Test::Unit::TestCase
+  def do_lu_test(data=[], expected=[])
+    m = LU.new(data)
+    result = m.decompose
+    result.round!
+    assert_equal(result.matrix, expected)
+  end
+
+  def test_lu_decompose
+    test_cases = [
+      {data: [[10,1,1], [2,10,1], [2,2,10]], expected: [[10,1,1], [0.2,9.8,0.8], [0.2,0.18,9.65]]},
+      {data: [[4,3], [6,3]], expected: [[4,3], [1.5, -1.5]]}
+    ]
+    test_cases.each { |test_case| do_lu_test(test_case[:data], test_case[:expected]) }
+  end
+end

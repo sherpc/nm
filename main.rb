@@ -17,7 +17,10 @@ class Solution
     @matrix
   end
   def round!(range=2)
-    @matrix.map! { |row| row.map! { |a| a.round(range) } }
+    @matrix = self.round(@matrix,range)
+  end
+  def self.round(m,range=2)
+    m.map { |row| row.map { |a| a.round(range) } }
   end
 end
 

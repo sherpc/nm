@@ -1,5 +1,7 @@
 class LU < Solution
-  def decompose
+  attr_reader :lu_m, :answer
+  alias lu_matrix lu_m
+  def decompose!
     @lu_m = Array.new(@matrix)
     n = @matrix.length - 1
     # U, L, i = 1..n
@@ -10,11 +12,15 @@ class LU < Solution
         @lu_m[j+1][i] = (@matrix[j+1][i] - sum(j+1,i)) / @lu_m[i][i] if j < n
       end
     end
-    Solution.new(@lu_m)
   end
-
+  
   def sum(a,b)
     (0..@i-1).reduce(0) { |s,k| s + @lu_m[a][k] * @lu_m[k][b] }
+  end
+
+  def solve(vector)
+    decompose! if @lu_m.nil?
+    @answer = @lu_m
   end
 end
 

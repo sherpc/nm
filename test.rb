@@ -14,11 +14,10 @@ class TestSolution < Test::Unit::TestCase
 end
 
 class TestLU < Test::Unit::TestCase
-  def do_lu_test(data=[], expected=[])
-    m = LU.new(data)
-    result = m.decompose
-    result.round!
-    assert_equal(result.matrix, expected)
+  def do_lu_test(test_case)
+    m = LU.new(test_case[:data])
+    m.decompose!
+    assert_equal(Solution.round(m.lu_matrix), test_case[:expected])
   end
 
   def test_lu_decompose
@@ -27,13 +26,13 @@ class TestLU < Test::Unit::TestCase
       {data: [[4,3], [6,3]], expected: [[4,3], [1.5, -1.5]]},
       {data: [[13, 7, 4], [7, 9, -3], [4, -3, 9]], expected: [[13, 7, 4], [0.54, 5.23, -5.15], [0.31, -0.99, 2.69]]}
     ]
-    test_cases.each { |test_case| do_lu_test(test_case[:data], test_case[:expected]) }
+    test_cases.each { |test_case| do_lu_test test_case }
   end
 
   def do_lu_solve_test(test_case)
     m = LU.new(test_case[:A_matrix])
-    result = m.solve(test_case[:B_matrix])
-    assert_equal(result, test_case[:expected])
+    m.solve(test_case[:B_matrix])
+    assert_equal(m.answer, test_case[:expected])
   end
 
   def test_lu_solve

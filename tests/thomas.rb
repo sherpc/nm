@@ -13,17 +13,17 @@ class TestThomas < Test::Unit::TestCase
     assert_equal m.n, 3
   end
 
-  def do_p_q_test(test_case)
+  def do_P_Q_test(test_case)
     m = Thomas.new test_case[:data]
     m.direct
-    assert_equal m.p.map { |x| x.round 4}, test_case[:p]
-    assert_equal m.q.map { |x| x.round 4}, test_case[:q]
+    assert_equal m.P.map { |x| x.round 4}, test_case[:P]
+    assert_equal m.Q.map { |x| x.round 4}, test_case[:Q]
   end
 
   def test_direct_flow
     cases = [
-      {data: @m4, p: [0.25, 0.3478, 0.374, 0], q:[0.75, 0.6522, 0.626, 1] }
+      {data: @m4, P: [0.25, 0.3478, 0.374, 0], Q:[0.75, 0.6522, 0.626, 1] }
     ]
-    cases.each { |test_case| do_p_q_test test_case }
+    cases.each { |test_case| do_P_Q_test test_case }
   end
 end

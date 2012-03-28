@@ -1,5 +1,5 @@
 class Thomas < Solution
-  attr_reader :answer, :p, :q
+  attr_reader :answer, :P, :Q
 
   def initialize data
     super data
@@ -9,14 +9,12 @@ class Thomas < Solution
   end
   
   def direct
-    @p = Array.new(@n+1)
-    @q = Array.new(@n+1)
-    @p[0] = -c[0] / b[0]
-    @q[0] = d[0] / b[0]
+    @P = Array.new(@n+1,0)
+    @Q = Array.new(@n+1,0)
 
-    for i in 1..@n
-      @p[i] = -c[i] / (b[i] + a[i] * p[i-1])
-      @q[i] = (d[i] - a[i] * q[i-1]) / (b[i] + a[i] * p[i-1])
+    for i in 0..@n
+      @P[i] = -c[i] / (b[i] + a[i] * @P[i-1])
+      @Q[i] = (d[i] - a[i] * @Q[i-1]) / (b[i] + a[i] * @P[i-1])
     end
   end
 

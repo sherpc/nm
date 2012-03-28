@@ -1,5 +1,5 @@
 class << Math
-  def Sum(a,b)
+  def S(a,b)
     a + b
   end
 end

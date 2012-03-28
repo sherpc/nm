@@ -1,17 +1,6 @@
 require "test/unit"
 require "./main.rb"
 
-class TestSolution < Test::Unit::TestCase
-  def test_data_loading
-    assert_equal(Data::THOMAS,Thomas.new.matrix)
-  end
-
-  def test_custom_data_loading
-    data = [[1,2], [3,4]]
-    assert_equal(LU.new(data).matrix, data)
-  end
-end
-
 class TestLU < Test::Unit::TestCase
   MATRIX_2 = [[4,3], [6,3]]
   MATRIX_3 = [[10,1,1], [2,10,1], [2,2,10]]

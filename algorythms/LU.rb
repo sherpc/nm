@@ -31,15 +31,14 @@ class LU < Solution
     @inv_m = new_matrix
     for i in 0..@n
       solve(unit_vector i)
-      for j in 0..@n
-        @inv_m[j][i] = @answer[j]
-      end
+      (0..@n).each { |j| @inv_m[j][i] = @answer[j] }
     end
   end
 
   def det
     decompose if @lu_m.nil?
-    (0..@n).reduce(1) { |mul,i| mul * @lu_m[i][i] }
+    @det unless @det.nil?
+    @det = (0..@n).reduce(1) { |mul,i| mul * @lu_m[i][i] }
   end
 
   def invertible_matrix

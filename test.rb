@@ -74,7 +74,7 @@ class TestLU < Test::Unit::TestCase
 
   def test_invert
     cases = [
-      {data: MATRIX_2, expected: [[-0.5, 0.5], [1, -0.66]]}
+      {data: MATRIX_2, expected: [[-0.5, 0.5], [1, -0.67]]}
     ]
     cases.each { |test_case| do_invert_test test_case }
   end

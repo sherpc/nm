@@ -49,7 +49,6 @@ class LU < Solution
 
   # b -- free values colum
   def solve(vector)
-    return unless @answer.nil?
     @b = vector
     decompose if @lu_m.nil?
     eval_z

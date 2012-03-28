@@ -1,5 +1,5 @@
 class Thomas < Solution
-  attr_reader :answer, :P, :Q
+  attr_reader :answer, :P, :Q, :answer
 
   def initialize data
     super data
@@ -16,6 +16,13 @@ class Thomas < Solution
       @P[i] = -c[i] / (b[i] + a[i] * @P[i-1])
       @Q[i] = (d[i] - a[i] * @Q[i-1]) / (b[i] + a[i] * @P[i-1])
     end
+  end
+
+  def solve
+    direct if @P.nil?
+    @answer = Array.new(@n+1)
+    @answer[@n] = @Q[@n]
+    (@n-1).downto(0).each { |i| @answer[i] = @P[i] * @answer[i+1] + @Q[i] }
   end
 
   private

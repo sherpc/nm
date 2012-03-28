@@ -1,0 +1,2 @@
+class Thomas < Solution
+end

@@ -69,16 +69,22 @@ class TestLU < Test::Unit::TestCase
 
   def do_invert_test(test_case)
     m = LU.new test_case[:data]
-    assert_equal(Solution.round(m.invertible_matrix), test_case[:expected])
+    assert_equal(Solution.round(m.invertible_matrix,3), test_case[:expected])
   end
 
   def test_invert
     cases = [
-      {data: MATRIX_2, expected: [[-0.5, 0.5], [1, -0.67]]}
+      {data: MATRIX_2, expected: [[-0.5, 0.5], [1, -0.667]]},
+      {data: MATRIX_3, expected: [[0.104, -0.008, -0.01], [-0.019, 0.104, -0.008], [-0.017, -0.019, 0.104]]},
+      {data: Data::LU_A, expected: 
+        [[-0.393, -0.303, -0.102, -0.409],
+         [0.05, 0.044, -0.077, -0.015],
+         [-0.089, -0.186, -0.087, -0.156],
+         [0.279, 0.192, -0.045, 0.325]]
+      }
     ]
     cases.each { |test_case| do_invert_test test_case }
   end
-
   def test_unit_vector
     m = LU.new MATRIX_3
     assert_equal(m.unit_vector(0), [1, 0, 0])

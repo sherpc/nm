@@ -69,7 +69,7 @@ class LU < Solution
   def det
     decompose if @lu_m.nil?
     @det unless @det.nil?
-    @det = (0..@n).reduce(1) { |mul,i| mul * @lu_m[i][i] }
+    @det = Math.mul(0,@n) { |i| @lu_m[i][i] }
   end
 
 end

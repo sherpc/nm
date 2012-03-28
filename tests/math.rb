@@ -16,4 +16,14 @@ class TestMath < Test::Unit::TestCase
     sum = Math.sum(0, 2) { |i| @array[i] * @array2[i] }
     assert_equal sum, 32
   end
+
+  def test_mul
+    mul = Math.mul(0, 2) { |i| @array[i] }
+    assert_equal mul, 6
+  end
+
+  def test_more_complex_mul
+    mul = Math.mul(0, 2) { |i| @array[i] + @array2[i] }
+    assert_equal mul, 315
+  end
 end

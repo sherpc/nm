@@ -2,12 +2,11 @@ require "./data.rb"
 
 class Solution
   def initialize(data=nil)
-    if data.nil?
-      @matrix = Data.const_get "#{self.class.to_s.upcase}"
-    else
-      raise "Empty data!" if data == []
-      @matrix = data
-    end
+    data = Data.const_get "#{self.class.to_s.upcase}" if data.nil?
+    #raise "Empty data!" if data == []
+
+    @matrix = Array.new(data.length) { |i| Array.new(data[i]) }
+    @n = @matrix.length - 1
     @matrix.map! { |x| x.map! { |a| a * 1.0 } }
   end
   def to_s
@@ -29,4 +28,3 @@ require "./algorythms/LU.rb"
 class Thomas < Solution
 end
 
-lab1 = [LU.new, Thomas.new]

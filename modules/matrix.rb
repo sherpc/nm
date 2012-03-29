@@ -9,8 +9,7 @@ module MatrixExtension
   def alternative_view!
     for i in 0..@n
       @B[i] /= @matrix[i][i]
-      (0...i).each { |j| alternative_a i, j }
-      (i+1..@n).each { |j| alternative_a i, j }
+      [0...i, i+1..@n].each_in_ranges { |j| alternative_a i, j }
       @matrix[i][i] = 0
     end
   end

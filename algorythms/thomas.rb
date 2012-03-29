@@ -1,7 +1,7 @@
 class Thomas < Solution
   attr_reader :answer, :P, :Q, :answer
 
-  def initialize data
+  def initialize data=nil
     super data
     @matrix[0] = [0] + @matrix[0]
     @matrix[2] << 0

@@ -1,5 +1,5 @@
 require "test/unit"
-require "./math.rb"
+require "./modules/math"
 
 class TestMath < Test::Unit::TestCase
   def setup

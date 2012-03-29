@@ -32,5 +32,4 @@ class Thomas < Solution
   def c; @matrix[2]; end
   def d; @matrix[3]; end
 
-  
 end

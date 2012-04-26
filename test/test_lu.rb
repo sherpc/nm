@@ -82,4 +82,13 @@ class TestLU < Test::Unit::TestCase
     assert_equal(m.unit_vector(1), [0, 1, 0])
     assert_equal(m.unit_vector(2), [0, 0, 1])
   end
+
+  def test_swap
+    m = LU.new MATRIX_2
+    m.swap(m.matrix,0,1)
+    assert_equal m.matrix, [[6, 3], [4, 3]]
+    m = LU.new MATRIX_3
+    m.swap(m.matrix,0,2)
+    assert_equal m.matrix, [[2,2,10], [2,10,1], [10,1,1]]
+  end
 end

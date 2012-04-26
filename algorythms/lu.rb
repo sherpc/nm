@@ -1,7 +1,7 @@
 class LU < Solution
   attr_reader :lu_m, :answer
   alias lu_matrix lu_m
-  
+
   # LU decomposition
   def decompose
     return unless @lu_m.nil?
@@ -16,6 +16,12 @@ class LU < Solution
     end
   end
   
+  def swap(matrix,x, y)
+    temp = matrix[x]
+    matrix[x] = matrix[y]
+    matrix[y] = temp
+  end
+
   def sum_lu(a,b)
     Math.sum(0,@i-1) { |k| @lu_m[a][k] * @lu_m[k][b] }
   end

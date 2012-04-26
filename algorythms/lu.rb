@@ -5,6 +5,7 @@ class LU < Solution
   # LU decomposition
   def decompose
     return unless @lu_m.nil?
+    @p = 0
     @lu_m = Array.new(@matrix.length) { |i| Array.new(@matrix[i]) }
     # U, L, i = 1..n
     for step in 0..n
@@ -28,8 +29,9 @@ class LU < Solution
     swap(matrix, step, firstNonZero)
   end
 
-  def swap(matrix,x, y)
+  def swap(matrix, x, y)
     return if x == y
+    @p += 1
     temp = matrix[x]
     matrix[x] = matrix[y]
     matrix[y] = temp
@@ -88,8 +90,7 @@ class LU < Solution
   def det
     decompose if @lu_m.nil?
     @det unless @det.nil?
-    @det = Math.mul(0,@n) { |i| @lu_m[i][i] }
+    @det = ((-1) ** @p) * Math.mul(0,@n) { |i| @lu_m[i][i] }
   end
-
 end
 

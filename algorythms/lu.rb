@@ -9,13 +9,17 @@ class LU < Solution
     # U, L, i = 1..n
     for step in 0..n
       check_first_non_zero @lu_m, step
-      for i in (step+1)..n
-        coefficient = @lu_m[i][step] / @lu_m[step][step]
-        @lu_m[i][step] = coefficient
-        for j in (step+1)..n
-          @lu_m[i][j] -= @lu_m[step][j] * coefficient
-        end
-      end
+      gauss_step step
+    end
+  end
+
+  def gauss_step(step)
+    for i in step+1..n
+      coefficient = @lu_m[i][step] / @lu_m[step][step]
+      #Fill L matrix part
+      @lu_m[i][step] = coefficient
+      #Fill U matrix part
+      (step+1..n).each { |j| @lu_m[i][j] -= @lu_m[step][j] * coefficient }
     end
   end
   

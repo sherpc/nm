@@ -91,4 +91,11 @@ class TestLU < Test::Unit::TestCase
     m.swap(m.matrix,0,2)
     assert_equal m.matrix, [[2,2,10], [2,10,1], [10,1,1]]
   end
+
+  def test_check_first_non_zero()
+    m = LU.new [[4, 3, 2.0], [0.0, 0.0, 4], [5.0, 1, 3]]
+    result = [[4, 3, 2.0], [5.0, 1, 3], [0.0, 0.0, 4]]
+    m.check_first_non_zero(m.matrix,1)
+    assert_equal m.matrix, result
+  end
 end

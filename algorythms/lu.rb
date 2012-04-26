@@ -5,18 +5,27 @@ class LU < Solution
   # LU decomposition
   def decompose
     return unless @lu_m.nil?
-    @lu_m = new_matrix
+    @lu_m = Array.new(@matrix.length) { |i| Array.new(@matrix[i]) }
     # U, L, i = 1..n
-    for i in 0..@n
-      @i = i
-      for j in i..@n
-        @lu_m[i][j] = @matrix[i][j] - sum_lu(i,j)
-        @lu_m[j+1][i] = (@matrix[j+1][i] - sum_lu(j+1,i)) / @lu_m[i][i] if j < @n
+    for step in 0..n
+      check_first_non_zero @lu_m, step
+      for i in (step+1)..n
+        coefficient = @lu_m[i][step] / @lu_m[step][step]
+        @lu_m[i][step] = coefficient
+        for j in (step+1)..n
+          @lu_m[i][j] -= @lu_m[step][j] * coefficient
+        end
       end
     end
   end
   
+  def check_first_non_zero(matrix, step)
+    firstNonZero = step + matrix.drop(step).find_index { |row| row[step] != 0 }
+    swap(matrix, step, firstNonZero)
+  end
+
   def swap(matrix,x, y)
+    return if x == y
     temp = matrix[x]
     matrix[x] = matrix[y]
     matrix[y] = temp

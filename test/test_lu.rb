@@ -4,6 +4,7 @@ require "./main.rb"
 class TestLU < Test::Unit::TestCase
   MATRIX_2 = [[4,3], [6,3]]
   MATRIX_3 = [[10,1,1], [2,10,1], [2,2,10]]
+  MATRIX_TO_SWAP = [[3.0, 2.0, 1.0], [6.0, 4, 3], [5.0, 2, 4]]
 
   def test_immutable
     start = TestLU::MATRIX_2.to_s
@@ -22,7 +23,8 @@ class TestLU < Test::Unit::TestCase
     test_cases = [
       {data: MATRIX_3, expected: [[10,1,1], [0.2,9.8,0.8], [0.2,0.18,9.65]]},
       {data: MATRIX_2, expected: [[4,3], [1.5, -1.5]]},
-      {data: [[13, 7, 4], [7, 9, -3], [4, -3, 9]], expected: [[13, 7, 4], [0.54, 5.23, -5.15], [0.31, -0.99, 2.69]]}
+      {data: [[13, 7, 4], [7, 9, -3], [4, -3, 9]], expected: [[13, 7, 4], [0.54, 5.23, -5.15], [0.31, -0.99, 2.69]]},
+      {data: MATRIX_TO_SWAP, expected: [[3.0, 2.0, 1.0], [1.67, -1.33, 2.33], [2.0, 0, 1]]}
     ]
     test_cases.each { |test_case| do_lu_test test_case }
   end

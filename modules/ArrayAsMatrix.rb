@@ -12,6 +12,10 @@ module ArrayAsMatrix
   def map2(xs,&block)
     self.zip(xs).map(&block)
   end
+
+  def is_vector?
+    return not(self[0].is_a? Array)
+  end
 end
 
 class Array

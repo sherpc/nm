@@ -13,11 +13,11 @@ class TestEasyIterations < Test::Unit::TestCase
   end
 
   def test_norm
-    assert_equal EasyIterations.new(@m3_alt,[]).norm, 0.4
-    assert_equal EasyIterations.new(@m3,[]).norm, 14
-    m = EasyIterations.new(@m2,[])
-    assert_equal m.norm, 9
-    assert_equal m.norm, 9
+    assert_equal MatrixExtension.norm(@m3_alt), 0.4
+    assert_equal MatrixExtension.norm(@m3), 14
+    assert_equal MatrixExtension.norm(@m2), 9
+    assert_equal MatrixExtension.norm(@m2), 9
+    assert_equal MatrixExtension.norm([1,-4,3]), 4
   end
 
   def do_alternative_view_test(cases)

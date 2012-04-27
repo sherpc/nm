@@ -14,4 +14,9 @@ class EasyIterations < Solution
     end
     return true
   end
+
+  def e k
+    @norm = norm(@yakobi)
+    (@norm / (1 - @norm)) * norm(@answer[k] - @answer[k-1])
+  end
 end

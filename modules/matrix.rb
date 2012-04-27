@@ -1,9 +1,11 @@
 module MatrixExtension
   attr_reader :b, :yakobi
-  def norm
-    # This line is for caching results. If norm calculated once, next times only return cached value
-    return @norm unless @norm.nil?
-    @norm = @matrix.map { |row| Math.sum(0,@n) { |i| row[i].abs } }.max
+  def self.norm(matrix)
+    if matrix.is_vector?
+      matrix.map { |x| x.abs }.max
+    else
+      matrix.map { |row| Math.sum(0,matrix.length-1) { |i| row[i].abs } }.max
+    end
   end
 
   def alternative_view

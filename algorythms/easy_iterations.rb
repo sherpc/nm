@@ -5,4 +5,13 @@ class EasyIterations < Solution
     super matrix
     @B = b_column
   end
+
+  def can_solve?
+    for i in 0..@n
+      sum = 0
+      [0...i, i+1..@n].each_in_ranges { |j| sum += @matrix[i][j].abs }
+      return false if @matrix[i][i].abs < sum
+    end
+    return true
+  end
 end

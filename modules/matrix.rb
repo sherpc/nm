@@ -16,6 +16,7 @@ module MatrixExtension
       [0...i, i+1..@n].each_in_ranges { |j| alternative_a i, j }
       @yakobi[i][i] = 0
     end
+    @norm = MatrixExtension.norm(@yakobi)
   end
 
   private

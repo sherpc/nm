@@ -12,24 +12,26 @@ class EasyIterations < Solution
     for i in 0..@n
       sum = 0
       [0...i, i+1..@n].each_in_ranges { |j| sum += @matrix[i][j].abs }
-      return false if @matrix[i][i].abs < sum
+      return false if @matrix[i][i].abs <= sum
     end
     return true
   end
 
   def solve
+    return if @answers
     alternative_view unless @yakobi
     raise "Can't solve SoLE" unless can_solve?
-    @answer = [@b]
+    @answers = [@b]
     k = 0
     begin
       k += 1
-      @answer[k] = @b.map2(@yakobi ** @answer[k-1]) { |x,y| x+y }
+      @answers[k] = @b.map2(@yakobi ** @answers[k-1]) { |x,y| x+y }
     end while(e(k) > @e)
+    @answer = @answers[k]
+    k
   end
 
   def e k
-    norm = MatrixExtension.norm(@yakobi)
-    (norm / (1 - norm)) * MatrixExtension.norm(@answer[k].map2(@answer[k-1]) { |x,y| x-y })
+    (@norm / (1 - @norm)) * MatrixExtension.norm(@answers[k].map2(@answers[k-1]) { |x,y| x-y })
   end
 end

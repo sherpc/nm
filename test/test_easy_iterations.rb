@@ -38,12 +38,15 @@ class TestEasyIterations < Test::Unit::TestCase
 
   def test_can_solve?
     m = EasyIterations.new @m3, @m3_b
-    assert_equal m.can_solve?, true
+    assert m.can_solve?
+    m = EasyIterations.new Data::ITERATIONS_A, Data::ITERATIONS_B, 0.01
+    assert not(m.can_solve?)
   end
 
   def test_solve
     m = EasyIterations.new @m3, @m3_b
-    m.solve
-    assert_equal m.answer.length, 5
+    assert_equal m.solve, 4
+    m = EasyIterations.new @m3, @m3_b, 0.1
+    assert_equal m.solve, 2
   end
 end

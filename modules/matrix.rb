@@ -18,6 +18,24 @@ class Matrix
     end
   end
 
+  def map! &block
+    for i in 0...@n
+      for j in 0...@n
+        @data[i][j] = yield i,j,@data[i][j]
+      end
+    end
+  end
+
+  def map &block
+    buffer = Array.new(@n) { Array.new(@n) }
+    for i in 0...@n
+      for j in 0...@n
+        buffer[i][j] = yield i, j, @data[i][j]
+      end
+    end
+    Matrix.new buffer
+  end
+
   def self.norm(matrix)
     if matrix.is_vector?
       matrix.map { |x| x.abs }.max

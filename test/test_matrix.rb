@@ -36,4 +36,15 @@ class TestMatrix < Test::Unit::TestCase
     @matrix.each { |i,j,x| arr[i*@matrix.n + j] = x }
     assert_equal [1,2,3,4], arr
   end
+
+  def test_map!
+    @matrix.map! { |i,j,x| x + 1 }
+    assert_equal [[2, 3], [4, 5]], @matrix.data
+  end
+
+  def test_map
+    new_matrix = @matrix.map { |i,j,x| x + 1 }
+    assert_not_equal [[2, 3], [4, 5]], @matrix.data
+    assert_equal [[2, 3], [4, 5]], new_matrix.data
+  end
 end

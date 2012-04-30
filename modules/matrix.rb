@@ -48,9 +48,8 @@ class Matrix < Array
     m = Matrix.new self
     m.each do |i,j,x| 
       if i < j
-        tmp = x
         m[i][j] = m[j][i]
-        m[j][i] = tmp
+        m[j][i] = x
       end
     end
     m

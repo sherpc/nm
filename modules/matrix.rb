@@ -65,7 +65,7 @@ end
 
 class << Matrix
   def zero size
-    raise ArgumenError, "Argument #{size} is not integer" unless size.is_a? Integer
+    raise ArgumentError, "Argument #{size} is not integer" unless size.is_a? Integer
     Matrix.new size
   end
 

@@ -1,13 +1,38 @@
 class Rotations < Solution
+  attr_reader :lambda, :x
   def initialize matrix, e = 0.01
     @e = e
     @a = [Matrix.new(matrix)]
+    @u = []
     @step = 0
+    @lambda = []
+    @x = [[]] * @a[0].n
   end
 
-  def rotate
+  def rotate step=0
+    @step = step
     max, i, j = max_non_diagonal
-    u = rotation_matrix i, j
+    @u[step] = rotation_matrix i, j
+    u = @u[step]
+    @a[step+1] = u.transpose() * current_a * u
+    if t(@a[step+1]) > @e
+      rotate(step+1) 
+    else
+      #Fill lambda array
+      @a[step+1].each { |i,j,x| @lambda[i] = x if i == j }
+      calculate_x
+    end
+  end
+
+  #Fill self vectors array
+  def calculate_x
+    @x = (0..@step).inject(Matrix.unary(@a[0].n)) { |m,i| m * @u[i] }.transpose()
+  end
+
+  def t matrix
+    sum = 0
+    matrix.each { |i,j,x| sum += x * x if i < j }
+    Math.sqrt sum
   end
 
   def rotation_matrix i, j

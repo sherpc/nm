@@ -27,4 +27,11 @@ class TestRotations < Test::Unit::TestCase
     expected = [[1,0,0], [0,0.76,0.65], [0,-0.65,0.76]]
     assert_equal expected, u.round.to_a
   end
+
+  def test_rotate
+    @m_3_3.rotate
+    assert_equal 3, @m_3_3.lambda.length
+    assert_equal [3.7301383132928194, 1.9213677570592262, 9.348493929647955], @m_3_3.lambda
+    assert_equal [[0.77, 0.2, -0.6], [-0.52, 0.75, -0.42], [0.37, 0.64, 0.68]], @m_3_3.x.round
+  end
 end

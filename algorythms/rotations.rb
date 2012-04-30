@@ -1,9 +1,8 @@
 class Rotations < Solution
   def initialize matrix, e = 0.01
-    super matrix
     @e = e
-    @a = [@matrix]
-    @step = 1
+    @a = [Matrix.new(matrix)]
+    @step = 0
   end
 
   def rotate
@@ -11,11 +10,10 @@ class Rotations < Solution
 
   def max_non_diagonal
     max = current_a[0][1].abs
-    for i in 0..@n
-      for j in 0..@n
-        max = current_a[i][j].abs if i < j && current_a[i][j].abs > max
-      end
+    current_a.each do |i, j, x|
+        max = x.abs if i < j && x.abs > max
     end
+    max
   end
 
   def current_a

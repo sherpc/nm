@@ -6,7 +6,6 @@ class LU < Solution
   def decompose
     return unless @lu_m.nil?
     @p = 0
-    #@lu_m = Array.new(@matrix.length) { |i| Array.new(@matrix[i]) }
     @lu_m = Matrix.new @matrix
     # U, L, i = 1..n
     for step in 0..n
@@ -36,10 +35,6 @@ class LU < Solution
     temp = matrix[x]
     matrix[x] = matrix[y]
     matrix[y] = temp
-  end
-
-  def sum_lu(a,b)
-    Math.sum(0,@i-1) { |k| @lu_m[a][k] * @lu_m[k][b] }
   end
 
   # Solving SoLE

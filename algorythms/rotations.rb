@@ -6,14 +6,17 @@ class Rotations < Solution
   end
 
   def rotate
+    max, i, j = max_non_diagonal
+    phi = Rotations.phi(current_a[i][j], current_a[i][i], current_a[j][j])
   end
 
   def max_non_diagonal
     max = current_a[0][1].abs
+    max_i, max_j = 0, 1
     current_a.each do |i, j, x|
-        max = x.abs if i < j && x.abs > max
+        max, max_i, max_j = x.abs, i, j if i < j && x.abs > max
     end
-    max
+    [max, max_i, max_j]
   end
 
   def current_a

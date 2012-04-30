@@ -1,12 +1,21 @@
 class Matrix < Array
   attr_reader :n
-  def initialize array
+  def initialize array=[]
     @n = array.length
     for i in 0...@n
       self[i] = Array.new(array[i])
     end
   end
   
+  def self.zero size
+    m = Matrix.new
+    @n = size
+    for i in 0...@n
+      m[i] = [0] * size
+    end
+    m
+  end
+
   def each &block
     for i in 0...@n
       for j in 0...@n

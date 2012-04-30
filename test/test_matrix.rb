@@ -19,5 +19,6 @@ class TestMatrix < Test::Unit::TestCase
     assert_equal @matrix[0][1], 2
     assert_equal @matrix[1][0], 3
     assert_equal @matrix[1][1], 4
+    assert_raise(IndexError) { @matrix[2][0] }
   end
 end

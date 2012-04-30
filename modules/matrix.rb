@@ -2,6 +2,7 @@ class Matrix
   attr_reader :data
   def initialize array
     @data = Array.new(array.length) { |i| Array.new(array[i]) }
+    @n = @data.length - 1
   end
   
   def [] i

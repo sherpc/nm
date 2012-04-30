@@ -1,7 +1,7 @@
 require "./data.rb"
 
 class Solution
-  attr_reader :n
+  attr_reader :n, :matrix
   def initialize(data=nil)
     data = Data.const_get "#{self.class.to_s.upcase}" if data.nil?
     #raise "Empty data!" if data == []
@@ -17,10 +17,6 @@ class Solution
 
   def to_s
     "matrix" + @matrix.to_s
-  end
-
-  def matrix
-    @matrix
   end
 
   def round!(range=2)

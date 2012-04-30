@@ -6,7 +6,8 @@ class LU < Solution
   def decompose
     return unless @lu_m.nil?
     @p = 0
-    @lu_m = Array.new(@matrix.length) { |i| Array.new(@matrix[i]) }
+    #@lu_m = Array.new(@matrix.length) { |i| Array.new(@matrix[i]) }
+    @lu_m = Matrix.new @matrix
     # U, L, i = 1..n
     for step in 0..n
       check_first_non_zero @lu_m, step
@@ -71,7 +72,7 @@ class LU < Solution
   # Invertible matrix
   def invertible_matrix
     invert if @inv_m.nil?
-    @inv_m
+    Matrix.new @inv_m
   end
 
   def invert

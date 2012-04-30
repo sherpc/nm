@@ -19,11 +19,7 @@ class Solution
     "matrix" + @matrix.to_s
   end
 
-  def round!(range=2)
-    @matrix = self.round(@matrix,range)
-  end
-
   def self.round(m,range=2)
-    m.map { |row| row.map { |a| a.round(range) } }
+    m.map { |i,j,x| x.round(range) }
   end
 end

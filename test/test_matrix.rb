@@ -8,11 +8,15 @@ class TestMatrix < Test::Unit::TestCase
   end
 
   def test_initialize
-    assert_equal @matrix.data, @a_2_x_2
+    assert_equal @matrix, @a_2_x_2
     assert_equal @matrix.n, 2
-    assert_equal @matrix.data[0][2], @a_2_x_2[0][2]
+    assert_equal @matrix[0][2], @a_2_x_2[0][2]
     @a_2_x_2[0][0] = -1
-    assert_not_equal @matrix.data, @a_2_x_2
+    assert_not_equal @matrix, @a_2_x_2
+  end
+
+  def test_part_getter
+    assert_equal [1,2], @matrix[0]
   end
 
   def test_getter
@@ -20,14 +24,14 @@ class TestMatrix < Test::Unit::TestCase
     assert_equal @matrix[0][1], 2
     assert_equal @matrix[1][0], 3
     assert_equal @matrix[1][1], 4
-    assert_raise(IndexError) { @matrix[2][0] }
-    assert_equal @matrix[0][2], nil
+    assert_raise(NoMethodError) { @matrix[2][0] }
+    assert_equal nil, @matrix[0][2]
   end
 
   def test_setter
     @matrix[0][0] = -1
     assert_equal @matrix[0][0], -1
-    assert_raise(IndexError) { @matrix[2][0] = - 1 }
+    assert_raise(NoMethodError) { @matrix[2][0] = - 1 }
     assert_nothing_raised { @matrix[0][2] = - 1 }
   end
 
@@ -39,12 +43,12 @@ class TestMatrix < Test::Unit::TestCase
 
   def test_map!
     @matrix.map! { |i,j,x| x + 1 }
-    assert_equal [[2, 3], [4, 5]], @matrix.data
+    assert_equal [[2, 3], [4, 5]], @matrix
   end
 
   def test_map
     new_matrix = @matrix.map { |i,j,x| x + 1 }
-    assert_not_equal [[2, 3], [4, 5]], @matrix.data
-    assert_equal [[2, 3], [4, 5]], new_matrix.data
+    assert_not_equal [[2, 3], [4, 5]], @matrix
+    assert_equal [[2, 3], [4, 5]], new_matrix
   end
 end

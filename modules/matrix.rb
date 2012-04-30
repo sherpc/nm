@@ -1,19 +1,16 @@
-class Matrix
-  attr_reader :data, :n
+class Matrix < Array
+  attr_reader :n
   def initialize array
-    @data = Array.new(array.length) { |i| Array.new(array[i]) }
-    @n = @data.length
+    @n = array.length
+    for i in 0...@n
+      self[i] = Array.new(array[i])
+    end
   end
   
-  def [] i
-    raise IndexError, "Incorrect index" if i >= @n
-    @data[i]
-  end
-
   def each &block
     for i in 0...@n
       for j in 0...@n
-        yield i,j,@data[i][j]
+        yield i,j,self[i][j]
       end
     end
   end
@@ -21,7 +18,7 @@ class Matrix
   def map! &block
     for i in 0...@n
       for j in 0...@n
-        @data[i][j] = yield i,j,@data[i][j]
+        self[i][j] = yield i,j,self[i][j]
       end
     end
   end
@@ -30,7 +27,7 @@ class Matrix
     buffer = Array.new(@n) { Array.new(@n) }
     for i in 0...@n
       for j in 0...@n
-        buffer[i][j] = yield i, j, @data[i][j]
+        buffer[i][j] = yield i, j, self[i][j]
       end
     end
     Matrix.new buffer

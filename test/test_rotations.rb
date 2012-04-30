@@ -22,7 +22,9 @@ class TestRotations < Test::Unit::TestCase
     assert_equal [9, 0, 1], @m_lab.max_non_diagonal
   end
 
-  def test_rotation
-    @m_3_3.rotate
+  def test_rotation_matrix
+    u = @m_3_3.rotation_matrix(1,2)
+    expected = [[1,0,0], [0,0.76,0.65], [0,-0.65,0.76]]
+    assert_equal expected, u.round.to_a
   end
 end

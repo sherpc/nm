@@ -13,15 +13,6 @@ class Matrix < Array
       end
     end
   end
-  
-  def self.zero size
-    raise ArgumenError, "Argument #{size} is not integer" unless size.is_a? Integer
-    Matrix.new size
-  end
-
-  def self.unary size
-    Matrix.zero(size).map { |i,j,x| i == j ? 1 : 0 }
-  end
 
   def each &block
     for i in 0...@n
@@ -49,7 +40,22 @@ class Matrix < Array
     Matrix.new buffer
   end
 
-  def self.norm(matrix)
+  def round precision=2
+    map { |i,j,x| x.round precision }
+  end
+end
+
+class << Matrix
+  def zero size
+    raise ArgumenError, "Argument #{size} is not integer" unless size.is_a? Integer
+    Matrix.new size
+  end
+
+  def unary size
+    Matrix.zero(size).map { |i,j,x| i == j ? 1 : 0 }
+  end
+
+  def norm(matrix)
     if matrix.is_vector?
       matrix.map { |x| x.abs }.max
     else

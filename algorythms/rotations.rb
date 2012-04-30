@@ -7,8 +7,18 @@ class Rotations < Solution
 
   def rotate
     max, i, j = max_non_diagonal
+    u = rotation_matrix i, j
+  end
+
+  def rotation_matrix i, j
     phi = Rotations.phi(current_a[i][j], current_a[i][i], current_a[j][j])
     u = Matrix.unary current_a.n
+    sin_phi = Math.sin(phi)
+    cos_phi = Math.cos(phi)
+    u[i][j] = -sin_phi
+    u[j][i] = sin_phi
+    u[i][i] = u[j][j] = cos_phi
+    return u
   end
 
   def max_non_diagonal

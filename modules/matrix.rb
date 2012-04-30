@@ -1,22 +1,19 @@
 class Matrix < Array
   attr_reader :n
-  def initialize array=[]
+  def initialize array=[],columns_size=nil
     if array.is_a? Integer
       @n = array
-      for i in 0...@n
-        self[i] = [0] * @n
-      end
+      @m = columns_size.is_a?(Integer) ? columns_size : @n
+      (0...@n).each { |i| self[i] = [0] * @m }
     else
-      @n = array.length
-      for i in 0...@n
-        self[i] = Array.new(array[i])
-      end
+      @m = @n = array.length
+      (0...@n).each { |i| self[i] = Array.new(array[i]) }
     end
   end
 
   def each &block
     for i in 0...@n
-      for j in 0...@n
+      for j in 0...@m
         yield i,j,self[i][j]
       end
     end
@@ -24,7 +21,7 @@ class Matrix < Array
 
   def map! &block
     for i in 0...@n
-      for j in 0...@n
+      for j in 0...@m
         self[i][j] = yield i,j,self[i][j]
       end
     end
@@ -33,7 +30,7 @@ class Matrix < Array
   def map &block
     buffer = Array.new(@n) { Array.new(@n) }
     for i in 0...@n
-      for j in 0...@n
+      for j in 0...@m
         buffer[i][j] = yield i, j, self[i][j]
       end
     end
@@ -53,6 +50,16 @@ class Matrix < Array
       end
     end
     m
+  end
+
+  def *(other)
+    raise ArgumentError, "Argument is not matrix" unless other.is_a? Matrix
+    raise ArgumentError, "Argument has wrong size" unless self[0].length == other.length
+    result = Matrix.new self.length, other[0].length
+    result.map! do |i,j,x|
+      (0...other.length).inject(0) { |s,k| s + self[i][k] * other[k][j] }
+    end
+    result
   end
 end
 

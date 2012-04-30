@@ -74,4 +74,13 @@ class TestMatrix < Test::Unit::TestCase
     m_3_3 = Matrix.new a_3_3
     assert_equal [[4,2,2], [2,5,3], [1,3,6]], m_3_3.transpose
   end
+
+  def test_mul
+    m_3_2 = Matrix.new [[1,3], [2,4], [1,2]]
+    m_2_3 = Matrix.new [[4,3,1], [2,1,2]]
+    assert_raise(ArgumentError) { Matrix.new([[1,3]]) * Matrix.new([1]) }
+    assert_raise(ArgumentError) { Matrix.new([[1,3]]) * 1 }
+    assert_equal [[10,6,7], [16,10,10], [8,5,5]], (m_3_2 * m_2_3).to_a
+    assert_equal [[15], [13]], (Matrix.new([[2,2,3], [1,3,2]]) * Matrix.new([[1], [2], [3]])).to_a
+  end
 end

@@ -19,7 +19,13 @@ class TestMatrix < Test::Unit::TestCase
 
   def test_zero
     assert_equal [[0,0], [0,0]], Matrix.zero(2)
+    assert_equal 2, Matrix.zero(2).n
     assert_equal [[0]*3]*3, Matrix.zero(3)
+  end
+
+  def test_unary
+    assert_equal [[1,0], [0,1]], Matrix.unary(2)
+    assert_equal [[1,0,0], [0,1,0], [0,0,1]], Matrix.unary(3)
   end
 
   def test_part_getter

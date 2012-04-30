@@ -1,19 +1,26 @@
 class Matrix < Array
   attr_reader :n
   def initialize array=[]
-    @n = array.length
-    for i in 0...@n
-      self[i] = Array.new(array[i])
+    if array.is_a? Integer
+      @n = array
+      for i in 0...@n
+        self[i] = [0] * @n
+      end
+    else
+      @n = array.length
+      for i in 0...@n
+        self[i] = Array.new(array[i])
+      end
     end
   end
   
   def self.zero size
-    m = Matrix.new
-    @n = size
-    for i in 0...@n
-      m[i] = [0] * size
-    end
-    m
+    raise ArgumenError, "Argument #{size} is not integer" unless size.is_a? Integer
+    Matrix.new size
+  end
+
+  def self.unary size
+    Matrix.zero(size).map { |i,j,x| i == j ? 1 : 0 }
   end
 
   def each &block

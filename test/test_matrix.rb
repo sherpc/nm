@@ -64,4 +64,14 @@ class TestMatrix < Test::Unit::TestCase
     assert_not_equal [[2, 3], [4, 5]], @matrix
     assert_equal [[2, 3], [4, 5]], new_matrix
   end
+
+  def test_transpose 
+    assert_equal [[1,3], [2,4]], @matrix.transpose
+    a_3_3 = [[4,2,1], [2,5,3], [1,3,6]]
+    m_3_3 = Matrix.new a_3_3
+    assert_equal m_3_3, m_3_3.transpose
+    a_3_3 = [[4,2,1], [2,5,3], [2,3,6]]
+    m_3_3 = Matrix.new a_3_3
+    assert_equal [[4,2,2], [2,5,3], [1,3,6]], m_3_3.transpose
+  end
 end

@@ -43,6 +43,18 @@ class Matrix < Array
   def round precision=2
     map { |i,j,x| x.round precision }
   end
+
+  def transpose
+    m = Matrix.new self
+    m.each do |i,j,x| 
+      if i < j
+        tmp = x
+        m[i][j] = m[j][i]
+        m[j][i] = tmp
+      end
+    end
+    m
+  end
 end
 
 class << Matrix

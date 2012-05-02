@@ -39,10 +39,8 @@ class Matrix < Array
 
   def select &block
     buffer = []
-    for i in 0...@n
-      for j in 0...@m
-        buffer << self[i][j] if yield(i, j, self[i][j])
-      end
+    self.each do |i, j, x|
+      buffer << x if yield(i, j, x)
     end
     buffer
   end

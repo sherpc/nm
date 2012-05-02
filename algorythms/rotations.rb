@@ -36,12 +36,10 @@ class Rotations < Solution
   end
 
   def rotation_matrix i, j
-    phi = Rotations.phi(a_current[i][j], a_current[i][i], a_current[j][j])
+    phi = Rotations.phi a_current[i][j], a_current[i][i], a_current[j][j]
     u = Matrix.unary a_current.n
-    sin_phi = Math.sin(phi)
-    cos_phi = Math.cos(phi)
-    u[i][j] = -sin_phi
-    u[j][i] = sin_phi
+    sin_phi, cos_phi = Math.sin(phi), Math.cos(phi)
+    u[i][j], u[j][i] = -sin_phi, sin_phi
     u[i][i] = u[j][j] = cos_phi
     return u
   end

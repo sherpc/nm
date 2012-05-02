@@ -11,18 +11,18 @@ class Rotations < Solution
 
   def rotate step=0
     @step = step
-    max, i, j = max_non_diagonal
-    @u[step] = rotation_matrix i, j
-    u = @u[step]
-    @a[step+1] = u.transpose() * current_a * u
-    if t(@a[step+1]) > @e
+    i, j = max_non_diagonal
+    self.u_current = rotation_matrix i, j
+    self.a_next = u_current.transpose() * a_current * u_current
+    if t(a_next) > @e
       rotate(step+1) 
     else
       #Fill lambda array
-      @a[step+1].each { |i,j,x| @lambda[i] = x if i == j }
+      a_next.each { |i,j,x| @lambda[i] = x if i == j }
       calculate_x
     end
   end
+  
 
   #Fill self vectors array
   def calculate_x
@@ -36,8 +36,8 @@ class Rotations < Solution
   end
 
   def rotation_matrix i, j
-    phi = Rotations.phi(current_a[i][j], current_a[i][i], current_a[j][j])
-    u = Matrix.unary current_a.n
+    phi = Rotations.phi(a_current[i][j], a_current[i][i], a_current[j][j])
+    u = Matrix.unary a_current.n
     sin_phi = Math.sin(phi)
     cos_phi = Math.cos(phi)
     u[i][j] = -sin_phi
@@ -47,20 +47,25 @@ class Rotations < Solution
   end
 
   def max_non_diagonal
-    max = current_a[0][1].abs
+    max = a_current[0][1].abs
     max_i, max_j = 0, 1
-    current_a.each do |i, j, x|
+    a_current.each do |i, j, x|
         max, max_i, max_j = x.abs, i, j if i < j && x.abs > max
     end
-    [max, max_i, max_j]
-  end
-
-  def current_a
-    @a[@step]
+    [max_i, max_j]
   end
 
   def self.phi a_i_j, a_i_i, a_j_j
     return Math::PI / 4 if a_i_i == a_j_j
     0.5 * Math.atan((2 * a_i_j) / (a_i_i - a_j_j))
   end
+
+  private
+  def u_current; @u[@step]; end
+  def u_current= value; @u[@step] = value; end
+
+  def a_current; @a[@step]; end
+  def a_next; @a[@step+1]; end
+  def a_next=(value); @a[@step+1] = value; end
+
 end

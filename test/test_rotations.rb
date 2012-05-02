@@ -17,9 +17,9 @@ class TestRotations < Test::Unit::TestCase
   end
 
   def test_max_non_diagonal
-    assert_equal [2, 0, 1], @m_2_2.max_non_diagonal
-    assert_equal [3, 1, 2], @m_3_3.max_non_diagonal
-    assert_equal [9, 0, 1], @m_lab.max_non_diagonal
+    assert_equal [0, 1], @m_2_2.max_non_diagonal
+    assert_equal [1, 2], @m_3_3.max_non_diagonal
+    assert_equal [0, 1], @m_lab.max_non_diagonal
   end
 
   def test_rotation_matrix

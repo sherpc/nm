@@ -54,6 +54,7 @@ class Matrix < Array
 
   def *(other)
     raise ArgumentError, "Argument is not matrix" unless other.is_a? Matrix
+    return self if other.is_a? UnaryMatrix
     raise ArgumentError, "Argument has wrong size" unless self[0].length == other.length
     result = Matrix.new self.length, other[0].length
     result.map! do |i,j,x|
@@ -61,6 +62,17 @@ class Matrix < Array
     end
     result
   end
+end
+
+class UnaryMatrix < Matrix
+  def *(other)
+    raise ArgumentError, "Argument is not matrix" unless other.is_a? Matrix
+    other
+  end
+end
+
+class Matrix
+  E = UnaryMatrix.new
 end
 
 class << Matrix

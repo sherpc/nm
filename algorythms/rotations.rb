@@ -2,20 +2,19 @@ class Rotations < Solution
   attr_reader :lambda, :x
   def initialize matrix, e = 0.01
     @e = e
-    @a = [Matrix.new(matrix)]
-    @u = []
-    @step = 0
+    @A = [Matrix.new(matrix)]
+    @U = []
+    @k = 0
     @lambda = []
-    @x = [[]] * @a[0].n
+    @x = [[]] * @A[0].n
   end
 
-  def rotate step=0
-    @step = step
-    i, j = max_non_diagonal
-    self.u_current = rotation_matrix i, j
+  def rotate k=0
+    @k = k
+    self.u_current = rotation_matrix *max_non_diagonal
     self.a_next = u_current.transpose() * a_current * u_current
     if t(a_next) > @e
-      rotate(step+1) 
+      rotate(k+1) 
     else
       #Fill lambda array
       a_next.each { |i,j,x| @lambda[i] = x if i == j }
@@ -26,7 +25,7 @@ class Rotations < Solution
 
   #Fill self vectors array
   def calculate_x
-    @x = (0..@step).inject(Matrix.unary(@a[0].n)) { |m,i| m * @u[i] }.transpose()
+    @x = @U.reduce { |result, u| result * u }.transpose
   end
 
   def t matrix
@@ -59,11 +58,11 @@ class Rotations < Solution
   end
 
   private
-  def u_current; @u[@step]; end
-  def u_current= value; @u[@step] = value; end
+  def u_current; @U[@k]; end
+  def u_current= value; @U[@k] = value; end
 
-  def a_current; @a[@step]; end
-  def a_next; @a[@step+1]; end
-  def a_next=(value); @a[@step+1] = value; end
+  def a_current; @A[@k]; end
+  def a_next; @A[@k+1]; end
+  def a_next=(value); @A[@k+1] = value; end
 
 end

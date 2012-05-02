@@ -83,4 +83,9 @@ class TestMatrix < Test::Unit::TestCase
     assert_equal [[10,6,7], [16,10,10], [8,5,5]], (m_3_2 * m_2_3).to_a
     assert_equal [[15], [13]], (Matrix.new([[2,2,3], [1,3,2]]) * Matrix.new([[1], [2], [3]])).to_a
   end
+
+  def test_unary_matrix
+    assert_equal @matrix, @matrix * Matrix::E
+    assert_equal @matrix, Matrix::E * @matrix
+  end
 end

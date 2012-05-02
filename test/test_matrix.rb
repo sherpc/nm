@@ -88,4 +88,24 @@ class TestMatrix < Test::Unit::TestCase
     assert_equal @matrix, @matrix * Matrix::E
     assert_equal @matrix, Matrix::E * @matrix
   end
+
+  def test_select
+    assert_equal [3, 4], @matrix.select { |i,j,x| x > 2 }
+    assert_equal [1, 4], @matrix.select { |i,j,x| i == j }
+  end
+
+  def test_main_diagonal
+    assert_equal [1, 4], @matrix.main_diagonal
+    a_3_3 = [[4,2,1], [2,5,3], [2,3,6]]
+    m_3_3 = Matrix.new a_3_3
+    assert_equal [4,5,6], m_3_3.main_diagonal
+  end
+
+  def test_reduce
+    assert_equal 11, @matrix.reduce { |sum,i,j,x| sum + x }
+    assert_equal 10, @matrix.reduce(0) { |sum,i,j,x| sum + x }
+    assert_equal 24, @matrix.reduce { |sum,i,j,x| sum * x }
+    assert_equal 24, @matrix.reduce(1) { |sum,i,j,x| sum * x }
+    assert_equal 0, @matrix.reduce(0) { |sum,i,j,x| sum * x }
+  end
 end

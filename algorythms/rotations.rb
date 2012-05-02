@@ -3,10 +3,8 @@ class Rotations < Solution
   def initialize matrix, e = 0.01
     @e = e
     @A = [Matrix.new(matrix)]
-    @U = []
     @k = 0
-    @lambda = []
-    @x = [[]] * @A[0].n
+    @U = []
   end
 
   def rotate k=0
@@ -17,21 +15,14 @@ class Rotations < Solution
       rotate(k+1) 
     else
       #Fill lambda array
-      a_next.each { |i,j,x| @lambda[i] = x if i == j }
-      calculate_x
+      @lambda = a_next.main_diagonal
+      #Fill self vectors array
+      @x = @U.reduce { |result, u| result * u }.transpose
     end
-  end
-  
-
-  #Fill self vectors array
-  def calculate_x
-    @x = @U.reduce { |result, u| result * u }.transpose
   end
 
   def t matrix
-    sum = 0
-    matrix.each { |i,j,x| sum += x * x if i < j }
-    Math.sqrt sum
+    Math.sqrt matrix.reduce(0) { |sum,i,j,x| sum + (i < j ? x*x : 0) }
   end
 
   def rotation_matrix i, j
@@ -64,5 +55,4 @@ class Rotations < Solution
   def a_current; @A[@k]; end
   def a_next; @A[@k+1]; end
   def a_next=(value); @A[@k+1] = value; end
-
 end

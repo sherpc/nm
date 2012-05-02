@@ -37,6 +37,30 @@ class Matrix < Array
     Matrix.new buffer
   end
 
+  def select &block
+    buffer = []
+    for i in 0...@n
+      for j in 0...@m
+        buffer << self[i][j] if yield(i, j, self[i][j])
+      end
+    end
+    buffer
+  end
+
+  def reduce result=nil, &block
+    result ||= self[0][0]
+    for i in 0...@n
+      for j in 0...@m
+        result = yield result, i, j, self[i][j]
+      end
+    end
+    result
+  end
+
+  def main_diagonal
+    self.select { |i,j,x| i == j }
+  end
+
   def round precision=2
     map { |i,j,x| x.round precision }
   end

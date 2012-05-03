@@ -21,15 +21,15 @@ class TestLU < Test::Unit::TestCase
     m = LU.new(test_case[:data])
     m.decompose
     assert_not_equal(m.matrix,m.lu_matrix)
-    assert_equal(Solution.round(m.lu_matrix), test_case[:expected])
+    assert_equal test_case[:expected], m.lu_m.round.to_a
   end
 
   def test_lu_decompose
     test_cases = [
       {data: MATRIX_3, expected: [[10,1,1], [0.2,9.8,0.8], [0.2,0.18,9.65]]},
-      {data: MATRIX_2, expected: [[4,3], [1.5, -1.5]]},
+      {data: MATRIX_2, expected: [[6.0, 3.0], [0.67, 1.0]]},
       {data: [[13, 7, 4], [7, 9, -3], [4, -3, 9]], expected: [[13, 7, 4], [0.54, 5.23, -5.15], [0.31, -0.99, 2.69]]},
-      {data: MATRIX_TO_SWAP, expected: [[3.0, 2.0, 1.0], [1.67, -1.33, 2.33], [2.0, 0, 1]]}
+      {data: MATRIX_TO_SWAP, expected: [[6.0, 4.0, 3.0], [0.83, -1.33, 1.5], [0.5, -0.0, -0.5]] }
     ]
     test_cases.each { |test_case| do_lu_test test_case }
   end
@@ -37,12 +37,12 @@ class TestLU < Test::Unit::TestCase
   def do_lu_solve_test(test_case)
     m = LU.new(test_case[:A_matrix])
     m.solve(test_case[:B_matrix])
-    assert_equal(m.answer.map { |x| x.round 2 }, test_case[:expected])
+    assert_equal(test_case[:expected], m.answer.map { |x| x.round 2 })
   end
 
   def test_lu_solve
     test_cases = [
-      {A_matrix: MATRIX_2, B_matrix: [4, 3], expected: [-0.5, 2]},
+      {A_matrix: MATRIX_2, B_matrix: [4, 3], expected: [0.5, 0.33]},
       {A_matrix: MATRIX_3, B_matrix: [12, 13, 14], expected: [1, 1, 1]},
       {A_matrix: Data::LU_A, B_matrix: Data::LU_B, expected: [9,-6,-6,-1]}
     ]
@@ -65,12 +65,12 @@ class TestLU < Test::Unit::TestCase
 
   def do_invert_test(test_case)
     m = LU.new test_case[:data]
-    assert_equal(Solution.round(m.invertible_matrix,3), test_case[:expected])
+    assert_equal test_case[:expected], m.invertible_matrix.round(3).to_a
   end
 
   def test_invert
     cases = [
-      {data: MATRIX_2, expected: [[-0.5, 0.5], [1, -0.667]]},
+      {data: MATRIX_2, expected: [[0.5, -0.5], [-0.667, 1]]},
       {data: MATRIX_3, expected: [[0.104, -0.008, -0.01], [-0.019, 0.104, -0.008], [-0.017, -0.019, 0.104]]},
       {data: Data::LU_A, expected: 
         [[-0.393, -0.303, -0.102, -0.409],
@@ -97,10 +97,10 @@ class TestLU < Test::Unit::TestCase
     assert_equal m.matrix, [[2,2,10], [2,10,1], [10,1,1]]
   end
 
-  def test_check_first_non_zero()
+  def test_check_max()
     m = LU.new [[4, 3, 2.0], [0.0, 0.0, 4], [5.0, 1, 3]]
     result = [[4, 3, 2.0], [5.0, 1, 3], [0.0, 0.0, 4]]
-    m.check_first_non_zero(m.matrix,1)
+    m.check_max(m.matrix,1)
     assert_equal m.matrix, result
   end
 end

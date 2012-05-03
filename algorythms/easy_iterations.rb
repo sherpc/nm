@@ -19,13 +19,13 @@ class EasyIterations < Solution
   def solve
     return if @answers
     alternative_view unless @yakobi
-    raise "Can't solve SoLE" unless can_solve?
+    stop = can_solve? ? "e(k) > @e" : "Matrix.norm(@answers[k].map2(@answers[k-1]) { |x,y| x-y } ) > @e"
     @answers = [@b]
     k = 0
     begin
       k += 1
       @answers[k] = @b.map2(@yakobi ** @answers[k-1]) { |x,y| x+y }
-    end while(e(k) > @e)
+    end while(eval stop)
     @answer = @answers[k]
     k
   end
@@ -47,5 +47,46 @@ class EasyIterations < Solution
 
   def alternative_a i, j
     @yakobi[i][j] /= -@yakobi[i][i]
+  end
+
+  def print_results
+    puts "Simple iterations method. Start matrix:"
+    print Matrix.new(@matrix)
+    puts "B vector:"
+    p @B
+    puts "Solved with #{self.solve} iterations. Solution: "
+    p @answer
+  end
+end
+
+class Zeidel < EasyIterations
+  def solve
+    return if @answers
+    alternative_view unless @yakobi
+    stop = can_solve? ? "e(k) > @e" : "Matrix.norm(@answers[k].map2(@answers[k-1]) { |x,y| x-y } ) > @e"
+    @answers = [@b]
+    k = 0
+    begin
+      k += 1
+      @answers[k] = []
+      #@answers[k] = @b.map2(@yakobi ** @answers[k-1]) { |x,y| x+y }
+      for i in 0..@n
+        @answers[k][i] = 0
+        (0...i).each { |j| @answers[k][i] += @yakobi[i][j]*@answers[k][j] }
+        (i..@n).each { |j| @answers[k][i] += @yakobi[i][j]*@answers[k-1][j] }
+        @answers[k][i] += @b[i]
+      end
+    end while(eval stop)
+    @answer = @answers[k]
+    k
+  end
+
+  def print_results
+    puts "Zeidel method. Start matrix:"
+    print Matrix.new(@matrix)
+    puts "B vector:"
+    p @B
+    puts "Solved with #{self.solve} iterations. Solution: "
+    p @answer
   end
 end

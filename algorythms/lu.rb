@@ -9,7 +9,7 @@ class LU < Solution
     @lu_m = Matrix.new @matrix
     # U, L, i = 1..n
     for step in 0..n
-      check_first_non_zero @lu_m, step
+      check_max @lu_m, step
       gauss_step step
     end
   end
@@ -24,9 +24,16 @@ class LU < Solution
     end
   end
   
-  def check_first_non_zero(matrix, step)
-    firstNonZero = step + matrix.drop(step).find_index { |row| row[step] != 0 }
-    swap(matrix, step, firstNonZero)
+  def check_max(matrix, step)
+    #first_non_zero = step + matrix.drop(step).find_index { |row| row[step] != 0 }
+    max = matrix[step][step]
+    max_i = 0
+    matrix.drop(step).to_a.map { |row| row[step].abs }.each_with_index do |x,i|
+      max, max_i = x, i if x > max
+    end
+    max_i += step
+    #p "first_non_zero: #{first_non_zero}, max_i: #{max_i}"
+    swap(matrix, step, max_i)
   end
 
   def swap(matrix, x, y)
@@ -102,6 +109,25 @@ class LU < Solution
     p det
     print "Inverse matrix:\n"
     print @inv_m.round
+
+    lu_m = Matrix.new @lu_m
+    l = lu_m.map do |i,j,x|
+      if i == j
+        1
+      else
+        i > j ? x : 0
+      end
+    end
+    print "L:\n"
+    print l
+    u = lu_m.map do |i,j,x|
+      i <= j ? x : 0
+    end
+    print "U:\n"
+    print u
+    lu = l * u
+    print "L * U:\n"
+    print lu
   end
 end
 

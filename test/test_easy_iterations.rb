@@ -45,8 +45,11 @@ class TestEasyIterations < Test::Unit::TestCase
 
   def test_solve
     m = EasyIterations.new @m3, @m3_b
-    assert_equal m.solve, 4
+    assert_equal 4, m.solve
     m = EasyIterations.new @m3, @m3_b, 0.1
-    assert_equal m.solve, 2
+    assert_equal 2, m.solve
+    m = Zeidel.new Data::ITERATIONS_A, Data::ITERATIONS_B
+    assert_equal 7, m.solve
+    p m.answer
   end
 end

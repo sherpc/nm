@@ -1,4 +1,5 @@
 class Thomas < Solution
+  #TDMA
   attr_reader :answer, :P, :Q, :answer
 
   def initialize data=nil

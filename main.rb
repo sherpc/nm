@@ -16,6 +16,16 @@ module Lab_1
     m.print_results
   end
 
+  def self.l3
+    m = EasyIterations.new(Matrix.from_file(ARGV[1]), Matrix.from_file(ARGV[2]))
+    m.print_results
+  end
+
+  def self.l3z
+    m = Zeidel.new(Matrix.from_file(ARGV[1]), Matrix.from_file(ARGV[2]))
+    m.print_results
+  end
+
   def self.l4
     m = Rotations.new(Matrix.from_file ARGV[1])
     m.rotate

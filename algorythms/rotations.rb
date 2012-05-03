@@ -48,6 +48,15 @@ class Rotations < Solution
     0.5 * Math.atan((2 * a_i_j) / (a_i_i - a_j_j))
   end
 
+  def print_results
+    puts "Rotations method. Start matrix:"
+    print @A[0]
+    puts "Lambdas (self-values):"
+    p @lambda.map { |x| x.round 2 }
+    puts "X (self-vectors):"
+    print @x.round
+  end
+
   private
   def u_current; @U[@k]; end
   def u_current= value; @U[@k] = value; end

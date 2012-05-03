@@ -25,6 +25,13 @@ class Thomas < Solution
     (@n-1).downto(0).each { |i| @answer[i] = @P[i] * @answer[i+1] + @Q[i] }
   end
 
+  def print_results
+    puts "Thomas algorythm for triangular matrix. Start matrix:"
+    print Matrix.new(@matrix)
+    puts "Solution:\n"
+    p @answer
+  end
+
   private
 
   def a; @matrix[0]; end

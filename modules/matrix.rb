@@ -6,7 +6,8 @@ class Matrix < Array
       @m = columns_size.is_a?(Integer) ? columns_size : @n
       (0...@n).each { |i| self[i] = [0] * @m }
     else
-      @m = @n = array.length
+      @n = array.length
+      @m = (@n == 0) ? 0 : array[0].length
       (0...@n).each { |i| self[i] = Array.new(array[i]) }
     end
   end
@@ -84,6 +85,15 @@ class Matrix < Array
     end
     result
   end
+
+  def to_s
+    s = ""
+    self.each do |i,j,x|
+      s << "#{x} "
+      s << "\n" if (j+1) % @m == 0
+    end
+    s
+  end
 end
 
 class UnaryMatrix < Matrix
@@ -113,5 +123,9 @@ class << Matrix
     else
       matrix.map { |row| Math.sum(0,matrix.length-1) { |i| row[i].abs } }.max
     end
+  end
+
+  def from_file filename
+    eval(IO.read(filename))
   end
 end

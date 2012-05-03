@@ -88,5 +88,20 @@ class LU < Solution
     @det unless @det.nil?
     @det = ((-1) ** @p) * Math.mul(0,@n) { |i| @lu_m[i][i] }
   end
+
+  def print_results
+    puts "Lab 1.1, LU decomposition. Start matrix:"
+    print Matrix.new(@matrix)
+    puts "LU matrix:"
+    print @lu_m.round
+    print "Free values vector:\n"
+    p @b
+    print "Solution:\n"
+    p @answer
+    print "Determinant:\n"
+    p det
+    print "Inverse matrix:\n"
+    print @inv_m.round
+  end
 end
 

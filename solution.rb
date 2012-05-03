@@ -12,7 +12,7 @@ class Solution
   end
 
   def new_matrix
-    Array.new(@n+1) { Array.new(@n+1) }
+    Matrix.new(Array.new(@n+1) { Array.new(@n+1) })
   end
 
   def to_s

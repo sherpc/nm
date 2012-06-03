@@ -1,14 +1,8 @@
-class LagrangeInterpolation
+class NewtonInterpolation
   attr_accessor :xs
   def initialize f, xs
     @f, @xs = f, xs
     @power = 3
-  end
-
-  def w_xs i
-    (0..@power).inject(1) do |m, j| 
-      i == j ? 1 : m * (@xs[i] - @xs[j])
-    end
   end
 
   def make_polynomial
@@ -18,7 +12,7 @@ class LagrangeInterpolation
   end
 
   def term i, x
-    Math.mul(0,@power) do |j|
+    Math.mul(0, i-1) do |j|
       i == j ? @f[@xs[i]] / w_xs(i) : (x - @xs[i])
     end
   end

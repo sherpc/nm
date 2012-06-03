@@ -26,4 +26,8 @@ class TestMath < Test::Unit::TestCase
     mul = Math.mul(0, 2) { |i| @array[i] + @array2[i] }
     assert_equal mul, 315
   end
+
+  def test_invalid_range
+    assert_equal 1, Math.mul(0,-1) { |i| i + 3 }
+  end
 end

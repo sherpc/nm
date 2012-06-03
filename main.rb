@@ -34,6 +34,7 @@ module Lab_1
 end
 
 if __FILE__ == $0
-  exit
+  #Analyze.newton
+  #exit
   Lab_1.send "l#{ARGV[0]}"
 end

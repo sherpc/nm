@@ -11,9 +11,9 @@ class TestNewton < Test::Unit::TestCase
   def test_process
     equatation = Newton.new @f, @f_1, @f_2, 1.5
     assert_equal 1.39533704424061, equatation.solution
-    equatation.e = 0.0000001
+    equatation.accuracy = 0.0000001
     assert_equal 1.3953369944670762, equatation.solution
-    equatation.e = 0.1
+    equatation.accuracy = 0.1
     assert_equal 1.4076086956521738, equatation.solution
   end
 end

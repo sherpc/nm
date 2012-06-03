@@ -1,9 +1,9 @@
 class Newton
-  attr_accessor :e
-  attr_reader :x
-  def initialize f, f_1, f_2, x, e = 0.001
+  attr_accessor :accuracy
+  attr_reader :x, :k
+  def initialize f, f_1, f_2, x, accuracy = 0.001
     @f, @f_1, @f_2 = f, f_1, f_2
-    @e = e
+    @accuracy = accuracy
     @x_start = x
     refresh_x
   end
@@ -24,10 +24,12 @@ class Newton
   def refresh_x
     @x = @x_start
     @x_next = @x_start
+    @k = 0
   end
 
   def solve
     @x_next = process
+    @k += 1
     return @x_next if enough?
     @x = @x_next
     solve
@@ -38,7 +40,7 @@ class Newton
   end
 
   def enough? 
-    (@x_next - @x).abs < @e
+    (@x_next - @x).abs < @accuracy
   end
 
   def process

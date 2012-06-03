@@ -1,18 +1,14 @@
 require 'gnuplot'
-class Plot
-  def initialize x, y
-    @x, @y = x, y
-  end
-
-  def render
+module Plot
+  def self.render x, y
     Gnuplot.open do |gp|
       Gnuplot::Plot.new( gp ) do |plot|
   
       plot.title  "Array Plot Example"
-      plot.ylabel "x"
-      plot.xlabel "y"
+      plot.ylabel "Y"
+      plot.xlabel "X"
       
-      plot.data << Gnuplot::DataSet.new( [@x, @y] ) do |ds|
+      plot.data << Gnuplot::DataSet.new( [y, x] ) do |ds|
         ds.with = "linespoints"
         ds.notitle
       end

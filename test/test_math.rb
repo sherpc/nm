@@ -29,5 +29,6 @@ class TestMath < Test::Unit::TestCase
 
   def test_invalid_range
     assert_equal 1, Math.mul(0,-1) { |i| i + 3 }
+    assert_equal 3, Math.mul(0,0) { |i| i + 3 }
   end
 end

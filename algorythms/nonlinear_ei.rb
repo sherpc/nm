@@ -9,10 +9,6 @@ class NonlinearEI < IterationMethod
   
   private
 
-  def converge?
-    true
-  end
-
   def enough? 
     (@q/(1-@q)) * (@x_next - @x).abs <= @accuracy
   end

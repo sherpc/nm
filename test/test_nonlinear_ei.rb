@@ -1,7 +1,7 @@
 require "test/unit"
 require "./main.rb"
 
-class TestNewton < Test::Unit::TestCase
+class TestNonlinerEI < Test::Unit::TestCase
   def setup
     @f = ->(x) { (2 * x + 1) ** 0.25 }
   end

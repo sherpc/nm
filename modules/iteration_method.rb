@@ -17,16 +17,24 @@ class IterationMethod
   private
 
   def refresh_x
-    @x = @x_start
-    @x_next = @x_start
+    @x = x_start
+    @x_next = x_start
     @k = 0
+  end
+
+  def x_start
+    return @x_start if @x_start.is_a? Numeric
+    @x_start.clone
   end
 
   def solve
     @x_next = step @f, @x, @f_1
+    p "next: #@x_next"
     @k += 1
     return @x_next if enough?
     @x = @x_next
     solve
   end
+
+  def converge?; true; end
 end

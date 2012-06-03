@@ -25,15 +25,9 @@ class LU < Solution
   end
   
   def check_max(matrix, step)
-    #first_non_zero = step + matrix.drop(step).find_index { |row| row[step] != 0 }
-    max = matrix[step][step]
-    max_i = 0
-    matrix.drop(step).to_a.map { |row| row[step].abs }.each_with_index do |x,i|
-      max, max_i = x, i if x > max
-    end
-    max_i += step
+    first_non_zero = step + matrix.drop(step).find_index { |row| row[step] != 0 }
     #p "first_non_zero: #{first_non_zero}, max_i: #{max_i}"
-    swap(matrix, step, max_i)
+    swap(matrix, step, first_non_zero)
   end
 
   def swap(matrix, x, y)

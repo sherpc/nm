@@ -50,6 +50,5 @@ class TestEasyIterations < Test::Unit::TestCase
     assert_equal 2, m.solve
     m = Zeidel.new Data::ITERATIONS_A, Data::ITERATIONS_B
     assert_equal 7, m.solve
-    p m.answer
   end
 end

@@ -12,6 +12,6 @@ module Analyze
       n.solution
       n.k
     end
-    Plot.render accuracy, iterations
+    Plot.render accuracy, iterations, "Iterations count", "Accuracy", "Newton method", "newton"
   end
 end

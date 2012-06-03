@@ -14,10 +14,20 @@ class LagrangeInterpolation
   def make_polynom
     lambda do |x|
       (0..@power).inject(0) do |s, i|
-        (0..@power).inject(1) do |m, j|
-          i == j ? @f[@xs[i]] / w_xs(i) : (x - @xs[i])
+        s + (0..@power).inject(1) do |m, j|
+          m * (i == j ? @f[@xs[i]] / w_xs(i) : (x - @xs[i]))
         end
       end
     end
+  end
+
+  def part i
+    (0..@power).inject(1) do |m, j|
+      m * (i == j ? @f[@xs[i]] / w_xs(i) : (x - @xs[i]))
+    end
+  end
+
+  def error x
+    (make_polynom[x] - @f[x]).abs
   end
 end

@@ -13,7 +13,7 @@ module Plot
       plot.ylabel y_label
       plot.xlabel x_label
       
-      plot.data << Gnuplot::DataSet.new( [y, x] ) do |ds|
+      plot.data << Gnuplot::DataSet.new( [x, y] ) do |ds|
         ds.with = "linespoints"
         ds.notitle
       end

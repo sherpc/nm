@@ -33,4 +33,7 @@ module Lab_1
   end
 end
 
-Lab_1.send "l#{ARGV[0]}"
+if __FILE__ == $0
+  exit
+  Lab_1.send "l#{ARGV[0]}"
+end

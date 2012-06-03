@@ -7,20 +7,15 @@ class NewtonSystem < IterationMethod
   end
 
   def step f, x, f_1
-    p "Increment: #{increment}"
     @x.map2(increment) { |x, det_x| x + det_x }
   end
 
   def enough?
-    p "Accuracy: #{@x.map2(@x_next) { |x, x_next| (x_next - x).abs }.max}"
     @x.map2(@x_next) { |x, x_next| (x_next - x).abs }.max <= @accuracy
-    STDIN.read
-    false
   end
 
   def increment
     # Return increment vector
-    p "x: #@x"
     [det_1 / det, det_2 / det ]
   end
 

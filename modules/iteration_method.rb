@@ -29,7 +29,6 @@ class IterationMethod
 
   def solve
     @x_next = step @f, @x, @f_1
-    p "next: #@x_next"
     @k += 1
     return @x_next if enough?
     @x = @x_next

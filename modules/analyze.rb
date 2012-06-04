@@ -5,14 +5,14 @@ module Analyze
     f_2 = ->(x) { 12 * x * x }
     n = Newton.new f, f_1, f_2, 1.5, 0.1
     xs, ys, xt, yt = generate_points n
-    Plot.render xs, ys, xt, yt, "Newton method", "newton", ds(xs,ys)
+    Plot.render xt, yt, "Newton method", "newton", ds(xs,ys)
   end
 
   def self.ei
     f = ->(x) { (2 * x + 1) ** 0.25 }
     n = NonlinearEI.new f, 0.2, 1.4, 0.1
     xs, ys, xt, yt = generate_points n
-    Plot.render xs, ys, xt, yt, "Easy iterations method", "ei", ds(xs,ys)
+    Plot.render xt, yt, "Easy iterations method", "ei", ds(xs,ys)
   end
 
   def self.least_squares
@@ -25,7 +25,7 @@ module Analyze
     0.step(9, 0.1).each { |x| x1 << x }
     y1 = x1.map { |x| f_1[x] }
     y2 = x1.map { |x| f_2[x] }
-    Plot.render x,y,"","","Least squares", "ls", [Plot.ds(x,y), Plot.ds(x1,y1,"f_1"), Plot.ds(x1,y2,"f_2")]
+    Plot.render "X","Y","Least squares", "ls", [Plot.ds(x,y,"","points"), Plot.ds(x1,y1,"f_1"), Plot.ds(x1,y2,"f_2")]
   end
 
   private
@@ -33,12 +33,13 @@ module Analyze
   def self.generate_points solver
     accuracy = []
     (1.0e-10).step(0.1, 1.0e-03) { |x| accuracy << x }
+    error = []
     iterations = accuracy.map do |e|
       solver.accuracy = e
-      solver.solution
+      error << (solver.solution-1.39534).abs
       solver.k
     end
-    return iterations, accuracy, "Iterations count", "Accuracy"
+    return iterations, error, "Iterations count", "Error"
   end
 
   def self.ds x, y

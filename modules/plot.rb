@@ -1,5 +1,5 @@
 module Plot
-  def self.render x, y, x_label = "X", y_label = "Y", title = "", filename = nil, data
+  def self.render x_label = "X", y_label = "Y", title = "", filename = nil, data
     require 'gnuplot'
     Gnuplot.open do |gp|
       Gnuplot::Plot.new( gp ) do |plot|
@@ -17,10 +17,10 @@ module Plot
     end
   end
   
-  def self.ds x, y, title=nil
+  def self.ds x, y, title=nil, with="linespoints"
     require 'gnuplot'
     Gnuplot::DataSet.new( [x, y] ) do |ds|
-      ds.with = "linespoints"
+      ds.with = with
       ds.notitle unless title
       ds.title = title if title
     end

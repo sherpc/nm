@@ -52,6 +52,34 @@ module Labs
     puts eq.solution
   end
 
+  def self.l3_1l
+    eval(IO.read(ARGV[1]))
+    interpolation = LagrangeInterpolation.new @f, @xs
+    puts interpolation.error(0.1)
+  end
+
+  def self.l3_1n
+    eval(IO.read(ARGV[1]))
+    interpolation = NewtonInterpolation.new @f, @xs
+    puts interpolation.error(0.1)
+  end
+
+  def self.l3_2
+    eval(IO.read(ARGV[1]))
+    sp = Spline.new @x, @f
+    sp.create
+    puts sp[0.1]
+  end
+
+  def self.l3_3
+    eval(IO.read(ARGV[1]))
+    ls = LeastSquares.new @x, @y
+    f_1 = ls.f_1
+    f_2 = ls.f_2
+    puts ls.error_1
+    puts ls.error_2
+  end
+
   def self.e
     (ARGV[2] || 0.001).to_f
   end

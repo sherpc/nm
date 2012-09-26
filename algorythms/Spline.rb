@@ -16,6 +16,8 @@ class Spline
   def[] x
     create unless @a
     i = x.ceil
+    i = @x.find_index { |k| x <= k }
+    i = 1 if i == 0
     throw "x: #{x} in not valid range" unless 1 <= i && i <= @n
     @a[i] + @b[i] * term(x,i,1) + @c[i] * term(x,i,2) + @d[i] * term(x,i,3)
   end

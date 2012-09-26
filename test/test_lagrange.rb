@@ -10,9 +10,9 @@ class TestLagrange < Test::Unit::TestCase
 
   def test_lagrange
     interpolation = LagrangeInterpolation.new @f, @xs_a
-    assert_equal 0.35293419302298557, interpolation.error(0.1)
+    assert_equal 0.0006035953921869897, interpolation.error(0.1)
 
     interpolation.xs = @xs_b
-    assert_equal 0.20528792137332044, interpolation.error(0.1)
+    assert_equal 0.204652427356411, interpolation.error(0.1)
   end
 end

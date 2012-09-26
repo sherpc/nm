@@ -6,8 +6,9 @@ class LagrangeInterpolation < Interpolation
   end
 
   def w_xs i
-    (0..@power).inject(1) do |m, j| 
-      i == j ? 1 : m * (@xs[i] - @xs[j])
+    (0..@power).inject(1) do |m,j|
+      i == j ? 1 : m * (@xs[i]-@xs[j])
     end
+    #Math.mul(0,@power) { |j| i == j ? 1 : (@xs[i]-@xs[j]) }
   end
 end
